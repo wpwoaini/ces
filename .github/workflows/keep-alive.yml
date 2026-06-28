@@ -2,16 +2,26 @@ name: Keep HF Space Alive
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
-  workflow_dispatch:
+    - cron: '*/5 * * * *'     # 每 5 分钟执行一次
+  workflow_dispatch:          # 支持手动触发
 
 jobs:
   ping:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: 🌐 Keep Space Alive
+      - name: Set timezone to Asia/Shanghai
+        uses: szenius/set-timezone@v1.2
+        with:
+          timezoneLinux: "Asia/Shanghai"
+      
+      - name: 🌐 Ping Hugging Face Space
         run: |
-          echo "🕒 时间: $(date -u +'%Y-%m-%d %H:%M:%S' -d '+8 hours')"
-          echo "🔗 访问: https://keawqe-ac.hf.space/"
-          curl -I -L -m 30 -A "Mozilla/5.0 (compatible; GitHub-KeepAlive)" https://keawqe-ac.hf.space/ || true
-          echo "✅ 执行完成"
+          echo "🕒 当前北京时间: $(date '+%Y-%m-%d %H:%M:%S')"
+          echo "🔄 正在访问: https://keawqe-ac.hf.space/"
+          
+          curl -I -L -m 30 \
+               -A "Mozilla/5.0 (compatible; GitHub-KeepAlive)" \
+               https://keawqe-ac.hf.space/ || true
+          
+          echo "✅ 本次定时任务执行完成"
