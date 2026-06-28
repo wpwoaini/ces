@@ -2,9 +2,7 @@ name: Keep HF Space Alive
 
 on:
   schedule:
-    # cron 格式：分 时 日 月 周（GitHub Actions 标准 5 位，去掉多余星号）
-    # 0 5 * * * → 每天 05:00 执行（UTC时间，配合时区插件转为北京时间5点）
-    - cron: '0 5 * * *'
+    - cron: '0 21 * * *'
   workflow_dispatch:
 
 jobs:
