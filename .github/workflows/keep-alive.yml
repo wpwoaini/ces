@@ -2,7 +2,7 @@ name: Keep HF Space Alive
 
 on:
   schedule:
-    - cron: '0 21 * * *' # UTC21:00 = 北京时间次日05:00
+    - cron: '*/30 * * * *'  # 每30分钟运行一次（比每天更可靠）
   workflow_dispatch:
 
 jobs:
@@ -12,7 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 替换老旧 set-timezone Action，原生设置时区，无Node版本警告
       - name: Set Asia/Shanghai Timezone
         run: |
           sudo timedatectl set-timezone Asia/Shanghai
